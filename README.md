@@ -3,7 +3,7 @@
 ```json
 {
     "message": "请求成功",
-    "data": 可能是任何数据类型,
+    "data": 可能是任何数据类型
 }
 ```
 ### GET /tables
@@ -36,5 +36,19 @@
   * `player`，只有place break interact chat session能用，用于指定玩家，例如`player=Nerakolo`
   * `dimension`，只有place break interact die能用，用于指定事件发生的纬度，例如`dimension=overworld`就是限制主世界
   * `is_join`，只有session能用，为true代表进服，为false代表退服
-  * 对于`die`表，除了可以用时间，xyz坐标，dimension维度，还能用`killer_id=minecraft:zombie`（指定杀手种类，这里面为僵尸），`killer_name=Nerakolo`（指定杀手名称，这里面为某个香香软软的男孩子），`dead_id`和`dead_name`也能用，与killer类似，不过dead代表被杀者
+  * 对于`die`表，除了可以用时间，xyz坐标，dimension维度，还能用`killer_id=minecraft:zombie`（指定杀手种类，这里面为僵尸），`killer_name=Nerakolo`（指定杀手名称），`dead_id`和`dead_name`也能用，与killer类似，不过dead代表被杀者
   * 对于`online`表，只能用时间来筛选
+* 响应体里data字段的结构
+```json
+{
+    "count": 100,
+    "field": [
+        {"key": "player", "title": "玩家名"},
+        {"key": "block_id", "title": "方块ID"}
+    ],
+    "data": [
+        {"player": "Nerakolo", "block_id": "minecraft:grass_block"},
+        {"player": "Nerakolo", "block_id": "minecraft:dirt"}
+    ]
+}
+```
