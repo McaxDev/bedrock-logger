@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Scripts for Axolotland",
+    "name": "Scripts for Axolotland",
+    "uuid": "26757bf1-6e2c-4fb4-a66b-92b803b8d582", 
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 40]
+  },
+  "modules": [
+    {
+      "description": "Main module for KeepItemsClearXPAddon",
+      "type": "script",
+			"language": "javascript",
+      "uuid": "473bedc7-5c47-42b5-80b1-e733635f4ebf", 
+      "version": [1, 0, 0],
+			"entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.15.0-beta"
+    },
+		{
+    	"module_name": "@minecraft/server-net",
+   		"version": "1.0.0-beta"
+		}
+  ]
+}
