@@ -15,18 +15,33 @@ export const stateStore = defineStore('state', {
     },
   }),
   actions: {
-    handelQueryForm(queryForm) {
+    handleQueryForm(queryForm) {
       this.queryForm=queryForm
     },
-    handelLoadingTable(value){
+    handleLoadingTable(value){
         this.loadingTable=value
     },
-    handelTabelDatas(value){
+    handleTabelDatas(value){
         this.tabelDatas=value
     },
-    handelTabelInfo(value){
+    handleTabelInfo(value){
         this.tableInfo=value
     }
+  },
+})
+
+export const useThemeStore = defineStore('theme', {
+  state: () => ({
+    main:{},
+    mode:'',
+  }),
+  actions: {
+    handleTheme(theme) {
+      this.main=theme
+    },
+    handleMode(mode) {
+      this.mode=mode
+    },
   },
 })
 

@@ -1,14 +1,14 @@
 <template>
-  <div class="home-box">
-    <div class="home-box-item-l" :class="isShow?'':'no-width'">
+  <div class="home-box" :style="{ background: theme.main.colorBgLayout }">
+    <div v-if="!isFull" class="home-box-item-l" :class="isShow?'':'no-width'" :style="{ borderColor: theme.main.colorBorder }">
       <div class="is-show-btn">
         <a-button size="small" type="primary" shape="circle" @click="isShow=!isShow">
           <MinusOutlined v-if="isShow" />
           <BorderOutlined v-else/>
         </a-button>
       </div>
-      <LHeaders v-if="isShow"></LHeaders>
-      <LForm v-if="isShow"></LForm>
+      <LHeaders v-show="isShow"></LHeaders>
+      <LForm v-show="isShow"></LForm>
     </div>
     <div class="home-box-item-r" :class="isShow?'':'full-width',' ',isFull?'full-screen-table':''">
       <RTable @fullScreenTable="fullScreenTable"></RTable>
@@ -17,25 +17,41 @@
 </template>
 
 <script>
+import { defineComponent, computed, watch, ref } from 'vue'
 import { MinusOutlined,BorderOutlined } from '@ant-design/icons-vue'
 import RTable from '@/components/rTable.vue'
 import LHeaders from '@/components/lHeaders.vue'
 import LForm from '@/components/lForm.vue'
-export default{
+
+import { useThemeStore } from '@/stores/stores'
+
+export default defineComponent({
   components:{ RTable,LHeaders,LForm,MinusOutlined,BorderOutlined },
   data(){
     return{
       isShow:true,
-      isFull:false
+      isFull:false,
     }
+  },
+  setup() {
+    const theme = useThemeStore()
+    return {
+      theme
+    }
+  },
+  mounted(){
+    
   },
   methods:{
     fullScreenTable(isFull) {
       // console.log(isFull)
       this.isFull=isFull
     }
+  },
+  watch:{
+
   }
-}
+})
 </script>
 
 <style scoped>
@@ -50,7 +66,7 @@ export default{
   width: 40%;
   border-radius: 8px;
   padding: 20px 10px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid;
   max-height: calc(100vh - 40px);
   overflow: auto;
   transition: 0.2s;
@@ -82,7 +98,6 @@ export default{
   padding: 10px;
   min-height: 100vh;
   overflow: auto;
-  background: #fff;
   z-index: 999;
   width: 100vw;
 }

@@ -2,7 +2,7 @@
     <div class="l-form">
         <a-spin :indicator="indicator" :spinning="state.loadingTable">
             
-            <div class="l-form-group">
+            <div class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">基础</div>
                 <div class="l-form-group-item">
                     <div class="l-form-item-label">查询类型</div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="shows.indexOf('x') != -1 || shows.indexOf('y') != -1 ||shows.indexOf('z') != -1" class="l-form-group">
+            <div v-if="shows.indexOf('x') != -1 || shows.indexOf('y') != -1 ||shows.indexOf('z') != -1" class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">坐标区域</div>
                 <div v-if="shows.indexOf('x') != -1" class="l-form-group-item">
                     <div class="l-form-item-label">X</div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="shows.indexOf('block_id') != -1" class="l-form-group">
+            <div v-if="shows.indexOf('block_id') != -1" class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">方块</div>
                 <div class="l-form-group-item">
                     <div class="l-form-item-label">方块事件</div>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="shows.indexOf('player') != -1" class="l-form-group">
+            <div v-if="shows.indexOf('player') != -1" class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">玩家</div>
                 <div class="l-form-group-item">
                     <div class="l-form-item-label">玩家事件</div>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="shows.indexOf('dimension') != -1" class="l-form-group">
+            <div v-if="shows.indexOf('dimension') != -1" class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">维度</div>
                 <div class="l-form-group-item">
                     <div class="l-form-item-label">事件发生维度</div>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="shows.indexOf('is_join') != -1" class="l-form-group">
+            <div v-if="shows.indexOf('is_join') != -1" class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">服务器</div>
                 <div class="l-form-group-item">
                     <div class="l-form-item-label">服务器事件</div>
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div v-if="this.form.table=='die'" class="l-form-group">
+            <div v-if="this.form.table=='die'" class="l-form-group" :style="{ color:theme.main.colorTextSecondary,background:theme.main.colorBgElevated }">
                 <div class="l-form-group-title">死亡事件</div>
                 <div class="l-form-group-item">
                     <div class="l-form-item-label">杀手ID</div>
@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <a-button style="margin-top: 10px;width: 100%;" type="primary" @click="queryInfos">查询</a-button>
+            <a-button :style="{ color:theme.main.colorText }" style="margin-top: 10px;width: 100%;" type="primary" @click="queryInfos">查询</a-button>
 
         </a-spin>
     </div>
@@ -121,7 +121,7 @@
   
 <script>
 import { http } from '@/utils/http'
-import { stateStore } from '@/stores/stores'
+import { stateStore,useThemeStore } from '@/stores/stores'
 export default{
     data(){
         return{
@@ -168,6 +168,12 @@ export default{
             state:stateStore(),
         }
     },
+    setup() {
+        const theme = useThemeStore()
+        return {
+            theme
+        }
+    },
     mounted(){
         this.getTables()
     },
@@ -186,7 +192,7 @@ export default{
                 })
         },
         queryInfos(){
-            this.state.handelLoadingTable(true)
+            this.state.handleLoadingTable(true)
             const query = {
                 ...this.form,
                 page:this.state.tableInfo.current,
@@ -194,7 +200,7 @@ export default{
             }
             delete query.time
             if(query.table){
-                this.state.handelQueryForm({...this.form})
+                this.state.handleQueryForm({...this.form})
                 http.post(`/query/${query.table}`,this.transformObjectTypes(query))
                     .then(res=>{
                         const field = res.data.data.field.map(item=>{
@@ -208,11 +214,11 @@ export default{
                         const table = {
                             field,data,count
                         }
-                        this.state.handelTabelDatas(table)
-                        this.state.handelLoadingTable(false)
+                        this.state.handleTabelDatas(table)
+                        this.state.handleLoadingTable(false)
                     })
                     .catch(err=>{
-                        this.state.handelLoadingTable(false)
+                        this.state.handleLoadingTable(false)
                     })
             }
         },
@@ -234,8 +240,8 @@ export default{
             this.form.order=value
         },
         changeTable(value){
-            this.state.handelTabelDatas({count:0,field:[],data:[]})
-            this.state.handelTabelInfo({current:1,pageSize:10})
+            this.state.handleTabelDatas({count:0,field:[],data:[]})
+            this.state.handleTabelInfo({current:1,pageSize:10})
             this.form={}
             this.form.table=value
             const a = {...((this.option.table.filter(item=>item.value==value))[0])}
@@ -290,7 +296,6 @@ export default{
         margin-top: 10px;
         border-radius: 8px;
         padding: 10px;
-        background: #f0f0f0;
         width: 100%;
         .l-form-group-item{
             margin-top: 10px;

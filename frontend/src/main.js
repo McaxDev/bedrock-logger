@@ -13,4 +13,8 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
 app.use(Antd)
 
+app.config.warnHandler = function(msg, vm, trace) {
+    
+}
+
 app.mount('#app')

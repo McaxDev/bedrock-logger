@@ -39,7 +39,7 @@
   
 <script>
 import { http } from '@/utils/http'
-import { stateStore } from '@/stores/stores'
+import { stateStore,useThemeStore } from '@/stores/stores'
 import { ExpandOutlined,CompressOutlined } from '@ant-design/icons-vue'
 export default{
     components:{ ExpandOutlined,CompressOutlined },
@@ -48,6 +48,7 @@ export default{
             state:stateStore(),
             isFull:false,
             expandedKeys:[],
+            theme:useThemeStore().main
         }
     },
     methods:{
@@ -70,14 +71,14 @@ export default{
             }
         },
         changePage(current, size){
-            this.state.handelTabelInfo({
+            this.state.handleTabelInfo({
                 current,
                 pageSize:size,
             })
             this.queryInfos()
         },
         changePageSize(current, size){
-            this.state.handelTabelInfo({
+            this.state.handleTabelInfo({
                 current,
                 pageSize:size,
             })
@@ -101,7 +102,7 @@ export default{
             }
         },
         queryInfos(){
-            this.state.handelLoadingTable(true)
+            this.state.handleLoadingTable(true)
             const query = {
                 ...this.transformObjectTypes(this.state.queryForm),
                 page:this.state.tableInfo.current,
@@ -121,11 +122,11 @@ export default{
                         const table = {
                             field,data,count
                         }
-                        this.state.handelTabelDatas(table)
-                        this.state.handelLoadingTable(false)
+                        this.state.handleTabelDatas(table)
+                        this.state.handleLoadingTable(false)
                     })
                     .catch(err=>{
-                        this.state.handelLoadingTable(false)
+                        this.state.handleLoadingTable(false)
                     })
             }
         },
