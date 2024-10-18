@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <a-button :style="{ color:theme.main.colorText }" style="margin-top: 10px;width: 100%;" type="primary" @click="queryInfos">查询</a-button>
+            <a-button style="margin-top: 10px;width: 100%;color: #fff;" type="primary" @click="queryInfos">查询</a-button>
 
         </a-spin>
     </div>
