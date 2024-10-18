@@ -6,7 +6,7 @@
       <template #icon>
         <SettingOutlined />
       </template>
-      <a-float-button href="https://github.com/McaxDev">
+      <a-float-button href="https://github.com/McaxDev" target="_blank">
         <template #icon>
           <GithubOutlined />
         </template>
