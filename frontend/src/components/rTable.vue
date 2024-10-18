@@ -1,6 +1,6 @@
 <template>
     <div class="r-table">
-        <a-watermark :content="dateTime" :gap="[50,50]" :zIndex="99999" :font="{fontSize:12}">
+        <a-watermark :content="dateTime" :gap="[50,50]" :zIndex="999" :font="{fontSize:12}">
             <a-table class="r-table-atable" :sticky="true" :rowKey="record => record.id" :scroll="{x:true}" :expandedRowKeys="expandedKeys" @expand="toggleExpand" :loading="state.loadingTable" :columns="state.tabelDatas.field" :data-source="state.tabelDatas.data" bordered :pagination="false" :expand-column-width="100" style="max-height: calc(100vh - 40px);flex-direction: column;display: flex;">
                 <template #headerCell="{title, column}">
                     <div style="text-wrap: nowrap;">{{ formatTableHeader(title, column) }}</div>
