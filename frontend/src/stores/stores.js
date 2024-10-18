@@ -48,6 +48,7 @@ export const useThemeStore = defineStore('theme', {
 export const appInfoStore = defineStore('appInfo', {
   state: () => ({
     version: 'v0.0.1 Preview',
+    main:'Axolotland',
     log:'',
   }),
 })
