@@ -84,6 +84,7 @@ export default defineComponent({
   padding: 0;
   margin: 0;
   width: 44px;
+  height: 44px;
   border:none;
   transition: 0.2s;
 }
@@ -100,5 +101,39 @@ export default defineComponent({
   overflow: auto;
   z-index: 999;
   width: 100vw;
+}
+@media (max-width: 992px) {
+  .home-box{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 100vh;
+    max-height: none;
+    justify-content: flex-start;
+  }
+  .home-box-item-l{
+    position: relative;
+    width: 100%;
+    max-height: none;
+    overflow: auto;
+    transition: 0.2s;
+    margin-bottom: 10px;
+  }
+  .home-box-item-r{
+    width: 100%;
+    transition: 0.2s;
+  }
+  .full-screen-table{
+    min-height: none;
+  }
+}
+</style>
+
+<style>
+@media (max-width: 992px) {
+  .ant-picker-datetime-panel{
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
