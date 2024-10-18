@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +18,16 @@ func main() {
 	}
 
 	router := gin.Default()
-	router.GET("/get", Getter)
+	router.Use(cors.New(cors.Config{
+		AllowAllOrigins:  true,
+		AllowMethods:     []string{"GET", "POST"},
+		AllowHeaders:     []string{"*"},
+		ExposeHeaders:    []string{"*"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+	router.POST("/query/:table", Getter)
+	router.GET("/tables", GetTables)
 	router.POST("/set", Setter)
 	router.Run(fmt.Sprintf(":%s", config.Port))
 }

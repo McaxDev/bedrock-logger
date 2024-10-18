@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -58,18 +57,22 @@ func InitDB() error {
 }
 
 type CommonStruct struct {
-	ID        uint `gorm:"primarykey"`
-	CreatedAt time.Time
+	ID        uint      `gorm:"primarykey" json:"id"`
+	CreatedAt time.Time `json:"createdAt"`
 }
 
 type BlockStruct struct {
 	CommonStruct
-	BlockID   string
-	Player    string
-	Dimension string
-	X         int
-	Y         int
-	Z         int
+	BlockID   string `json:"blockId"`
+	Player    string `json:"player"`
+	Dimension string `json:"dimension"`
+	VectorStruct
+}
+
+type VectorStruct struct {
+	X int `json:"x"`
+	Y int `json:"y"`
+	Z int `json:"z"`
 }
 
 type Break BlockStruct
@@ -78,29 +81,28 @@ type Interact BlockStruct
 
 type Die struct {
 	CommonStruct
-	DeadID     string
-	DeadName   string
-	KillerID   string
-	KillerName string
-	Dimension  string
-	X          int
-	Y          int
-	Z          int
+	DeadID     string `json:"deadId"`
+	DeadName   string `json:"deadName"`
+	KillerID   string `json:"killerId"`
+	KillerName string `json:"killerName"`
+	Dimension  string `json:"dimension"`
+	VectorStruct
 }
 
 type Chat struct {
 	CommonStruct
-	Player  string
-	Message string
+	Player  string `json:"player"`
+	Message string `json:"message"`
 }
 
 type Session struct {
 	CommonStruct
-	Player string
-	IsJoin bool
+	Player string `json:"player"`
+	IsJoin bool   `json:"isJoin"`
 }
 
 type Online struct {
 	CommonStruct
-	Data json.RawMessage
+	Online int    `json:"online"`
+	Data   []byte `json:"data"`
 }
