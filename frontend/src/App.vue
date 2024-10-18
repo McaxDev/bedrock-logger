@@ -1,13 +1,14 @@
 <template>
   <a-config-provider :theme="themex" :locale="locale">
     <RouterView />
-    <a-float-button-group trigger="hover" type="primary" :style="{ right: '40px' }">
+    <div><About :aboutModal="aboutModal" @closeMoadal="closeMoadal"></About></div>
+    <a-float-button-group trigger="hover" type="primary" :style="{ right: '40px',zIndex:999, }">
       <template #icon>
         <SettingOutlined />
       </template>
-      <a-float-button :tooltip="'调整主题色'">
+      <a-float-button href="https://github.com/McaxDev">
         <template #icon>
-          <CommentOutlined />
+          <GithubOutlined />
         </template>
       </a-float-button>
       <a-float-button :tooltip="`${themeStore.mode==='dark'?'深':'浅'}色模式`" @click="changeMode(themeStore.mode)">
@@ -20,7 +21,7 @@
           </icon>
         </template>
       </a-float-button>
-      <a-float-button :tooltip="'关于'">
+      <a-float-button :tooltip="'关于'" @click="openModal">
         <template #icon>
           <InfoOutlined />
         </template>
@@ -53,8 +54,9 @@ onMounted(() => {
 </script>
 
 <script>
+import About from './components/about.vue'
 import { useThemeStore } from './stores/stores'
-import { SettingOutlined, CommentOutlined, InfoOutlined } from '@ant-design/icons-vue'
+import { SettingOutlined, GithubOutlined, InfoOutlined } from '@ant-design/icons-vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
@@ -62,8 +64,9 @@ import 'dayjs/locale/zh-cn'
 export default {
   components: {
     SettingOutlined,
-    CommentOutlined,
+    GithubOutlined,
     InfoOutlined,
+    About
   },
   data() {
     return {
@@ -75,7 +78,8 @@ export default {
         algorithm: theme.defaultAlgorithm,
       },
       locale: zhCN,
-      themeStore:useThemeStore()
+      themeStore:useThemeStore(),
+      aboutModal:false,
     }
   },
   setup(){
@@ -120,6 +124,12 @@ export default {
           algorithm: mode === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm,
         }
       }
+    },
+    openModal(){
+      this.aboutModal=true
+    },
+    closeMoadal(){
+      this.aboutModal=false
     }
   },
 }
